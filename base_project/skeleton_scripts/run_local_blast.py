@@ -32,7 +32,7 @@ def blast(db, query, evalue, query_folder="./queries/", blast_path="", psiblast=
         # Note that it is is easier to parse the output if it is in tabular format.
         # For that use can use the option -outfmt '6 qacc sacc evalue'. (see https://www.ncbi.nlm.nih.gov/books/NBK279682/ )
         # To avoid the warning about composition based statistics, disable them with -comp_based_stats 0
-	    cmd = "blastp -query " + query_folder + query + ".fasta -db " + db + " -outfmt '6 qacc sacc evalue' -comp_based_stats 0 -evalue "+evalue
+	cmd = "blastp -query " + query_folder + query + ".fasta -db " + db + " -outfmt '6 qacc sacc evalue' -comp_based_stats 0 -evalue "+evalue
         ##########################
         ###  END CODING HERE  ####
         ##########################
@@ -43,7 +43,7 @@ def blast(db, query, evalue, query_folder="./queries/", blast_path="", psiblast=
         ##########################
         # Define the variable 'cmd' as a string with the command for PSI-BLASTing 'query' against
         # the specified database 'db'.
-	    cmd = "psiblast -query " + query_folder + query + ".fasta -db " + db +" -num_iterations 3 -outfmt '6 qacc sacc evalue' -comp_based_stats 0 -evalue "+evalue
+	cmd = "psiblast -query " + query_folder + query + ".fasta -db " + db +" -num_iterations 3 -outfmt '6 qacc sacc evalue' -comp_based_stats 0 -evalue "+evalue
         ##########################
         ###  END CODING HERE  ####
         ##########################
@@ -72,9 +72,9 @@ def parse_blast_result(blast_result, blast_dict):
                 ### START CODING HERE ####
                 ##########################
                 # Parse the e-score corresponding to this line's (query, subject) pair and store it in blast_dict.
-		        if not query == subject:
-			        e_score = float(splitted_line[2])
-			        blast_dict[(query, subject)] = e_score
+	        if not query == subject:
+		        e_score = float(splitted_line[2])
+		        blast_dict[(query, subject)] = e_score
                 ##########################
                 ###  END CODING HERE  ####
                 ##########################
@@ -120,6 +120,8 @@ def plot_evalue_distribution(blast_dict, png_filename="DistributionEValue.png", 
     pylab.hist(map(lambda x: math.log10(x + pseudo_count), blast_dict.values()))
     pylab.xlabel("log(e-value)")
     pylab.ylabel("Frequency")
+    pylab.ylim((0,350))
+
     pylab.savefig(png_filename)
 
     ##########################
@@ -156,8 +158,8 @@ def main(uniprot_id_list, query_folder, db, psiblast, output_filename, evalue, o
         # Store all the uniprot IDs in the uniprot_ids.
         # Parse and store the blast result in the blast_dict.
         blast_results = blast(db, query, evalue, query_folder, '', psiblast)
-	    blast_dict = parse_blast_result(blast_results, blast_dict)
-	    uniprot_ids.append(query)
+	blast_dict = parse_blast_result(blast_results, blast_dict)
+	uniprot_ids.append(query)
         ##########################
         ###  END CODING HERE  ####
         ##########################
