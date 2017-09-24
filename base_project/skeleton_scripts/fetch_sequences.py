@@ -36,13 +36,6 @@ def fetch_one_fasta(uniprot_id):
     fh.close()
     return result
 
-
-def check_query_folder(query_folder):
-    if not os.path.exists(query_folder):
-        return False
-    return True
-
-
 def fetch_all_sequences(query_folder, uniprot_ids, database_file):
     """
     Fetch the fasta formatted sequence for each uniProtID in the list.
@@ -65,13 +58,13 @@ def fetch_all_sequences(query_folder, uniprot_ids, database_file):
         # Store the fasta sequences as individual fasta file in your query directory.
         # Store all the fasta sequences in one single fasta file as well. These individual files will be used
         # as (PSI-)BLAST queries later on.
-	line = line.rstrip() # see documentation, removes "\n"
-	my_fasta = fetch_one_fasta(line) # retrieves the fasta data by calling the above function
-	my_query = open(query_folder+"/"+line+".fasta", "w") 	# opens new fasta file object with file name
-								# PDB-code.fasta in write mode in query_folder
-	my_query.write(my_fasta)
-	my_query.close()
-	database_file.write(my_fasta)
+	    line = line.rstrip() # see documentation, removes "\n"
+	    my_fasta = fetch_one_fasta(line) # retrieves the fasta data by calling the above function
+	    my_query = open(query_folder+"/"+line+".fasta", "w") 	# opens new fasta file object with file name
+								                                # PDB-code.fasta in write mode in query_folder
+	    my_query.write(my_fasta)
+	    my_query.close()
+	    database_file.write(my_fasta)
         ##########################
         ###  END CODING HERE  ####
         ##########################
@@ -79,6 +72,11 @@ def fetch_all_sequences(query_folder, uniprot_ids, database_file):
     print("Processing finished.")
     uniprot_ids.close()
     database_file.close()
+
+def check_query_folder(query_folder):
+    if not os.path.exists(query_folder):
+        return False
+    return True
 
 
 def main(query_folder, uniprot_ids, database_file):
