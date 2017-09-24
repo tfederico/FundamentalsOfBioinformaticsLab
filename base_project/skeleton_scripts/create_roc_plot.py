@@ -1,4 +1,3 @@
-
 #!/usr/bin/python
 
 # This script reads and parses your previously obtained results out of a blast output file, and a benchmark output file.
