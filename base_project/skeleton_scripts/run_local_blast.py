@@ -120,7 +120,7 @@ def plot_evalue_distribution(blast_dict, png_filename="DistributionEValue.png", 
     pylab.hist(map(lambda x: math.log10(x + pseudo_count), blast_dict.values()))
     pylab.xlabel("log(e-value)")
     pylab.ylabel("Frequency")
-    pylab.ylim((0,350))
+    pylab.ylim((0,400))
 
     pylab.savefig(png_filename)
 
