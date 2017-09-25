@@ -116,6 +116,7 @@ def roc_plot(blast_evalues, benchmark_dict, png_filename):
     diffs = 0
     fpr = 0
     tpr = 0
+    my_var = False
     for evalue, protein_pair in sorted_evalues:
 
         #########################
@@ -128,6 +129,7 @@ def roc_plot(blast_evalues, benchmark_dict, png_filename):
         #   (i.e. do not add 2 coordinates if 2 protein pairs have the same e-value.)
         # Ignore entries in the benchmark_dict classified as "ambiguous",
         #   as well as protein pairs for which you have no benchmark classification
+
 	if protein_pair in benchmark_dict.keys():
 		if not benchmark_dict[protein_pair] == "ambiguous":		
 			if not evalue == last_evalue:
@@ -135,6 +137,9 @@ def roc_plot(blast_evalues, benchmark_dict, png_filename):
 				y.append(tpr)
 			scop = benchmark_dict[protein_pair]
 			if scop == "different":
+				if my_var == False:
+					my_var = True
+					print("Res: "+str(evalue))
 				diffs += 1
 			elif scop == "similar":
 				sims += 1
