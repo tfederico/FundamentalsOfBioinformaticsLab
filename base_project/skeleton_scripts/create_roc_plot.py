@@ -138,8 +138,8 @@ def roc_plot(blast_evalues, benchmark_dict, png_filename):
 			scop = benchmark_dict[protein_pair]
 			if scop == "different":
 				if my_var == False:
-					my_var = True
-					print("Res: "+str(evalue))
+					my_var = False
+					print("Res: "+str(float(evalue)))
 				diffs += 1
 			elif scop == "similar":
 				sims += 1
